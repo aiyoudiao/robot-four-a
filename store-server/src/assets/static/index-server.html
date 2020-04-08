@@ -1,0 +1,52 @@
+<!--
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-03-14 08:29:03
+ * @LastEditTime: 2020-03-18 18:40:22
+ * @LastEditors: aiyoudiao
+ * @FilePath: \my-robot\src\assets\static\index.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微信机器人-二维码登录</title>
+</head>
+
+<body>
+    <!-- Please open the console
+     -->
+    <img src="" alt="扫码登录" id="qrcode">
+    <script>
+        var evtSource = new EventSource("/sse/getScanCode");
+        let i = 0;
+        evtSource.onmessage = function (e) {
+
+            if (e.data.indexOf('请启动机器人先')) {
+                i++;
+            } else {
+                i = 0;
+            }
+
+            if (i === 15) {
+                i = 0;
+                evtSource.close();
+            }
+
+            // console.log(e);
+            // console.log('onmsg: ' + e.data);
+            // document.getElementById('qrcode').src = e.data.replace(/\d{4}\-\d{1,2}\-\d{2}\s+\d{2}:\d{2}:\d{2}/, '').replace(/\r\n/, '');
+            document.getElementById('qrcode').src = e.data.replace(/\d{4}\-\d{1,2}\-\d{2}\s+\d{2}:\d{2}:\d{2}/, '').replace('&#10;', '')
+        }
+        evtSource.onerror = function (e) {
+            console.log('error', e);
+            evtSource.close();
+        }
+    </script>
+</body>
+
+</html>

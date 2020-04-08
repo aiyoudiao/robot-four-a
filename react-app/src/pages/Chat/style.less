@@ -1,0 +1,273 @@
+.chat-container {
+  .chat-box {
+    position: absolute;
+    top: 20px;
+    left: 25%;
+    display: flex;
+    flex-direction: column;
+    width: 780px;
+    height: 520px;
+    border-radius: 5px;
+    border: 1px solid #d1d1d1;
+    background: #fff;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .2);
+
+    .chat-header {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 60px;
+      background: #e6e6e6;
+      flex-shrink: 0;
+
+      .header-left {
+        position: absolute;
+        left: 0;
+        height: 80%;
+
+        img {
+          height: 100%;
+        }
+      }
+
+      .header-center {
+        height: 80%;
+
+        img {
+          height: 100%;
+        }
+      }
+
+      .header-right {
+        position: absolute;
+        right: 30px;
+      }
+    }
+
+    .chat-body {
+      display: flex;
+      flex-grow: 1;
+      display: flex;
+
+      .left {
+        flex-shrink: 0;
+        width: 200px;
+        height: 100%;
+        border-right: 1px solid #f3f3f3;
+      }
+
+      .main {
+        flex-grow: 1;
+        height: 100%;
+
+        .chat-list {
+          height: 328px;
+          overflow: auto;
+        }
+
+        .chat-editor-wrapper {
+          height: 130px;
+          flex-shrink: 0;
+          border-top: 1px solid #f3f3f3;
+        }
+      }
+
+      .right {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        width: 135px;
+        height: 100%;
+        background: #f6f7f9;
+        border-left: 1px solid #f3f3f3;
+
+        .member {
+          padding: 8px 10px 3px;
+        }
+
+        .user-item {
+          display: flex;
+          align-items: center;
+          color: #787677;
+          font-size: 12px;
+          padding: 5px 10px;
+
+          .avatar-box {
+            position: relative;
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+
+            &.mask {
+              img {
+                opacity: .7;
+              }
+
+              div {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.2);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+//避免css嵌套太深就从上面的提出来了,css没有模块化，所以要注意此样式会影响其他页面相同样式名的样式
+
+
+.left-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+
+  &:hover {
+    background: #f3f3f3;
+  }
+
+  .left-item-text {
+    flex-grow: 1;
+    overflow: hidden;
+    margin-left: 10px;
+
+    .group-name {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span:first-child {
+        color: rgba(0, 0, 0, 0.75);
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      span:last-child {
+        font-size: 12px;
+        color: #abaaab;
+      }
+    }
+
+    .group-message {
+      display: flex;
+      color: #777777;
+      font-size: 13px;
+      height: 21px;
+      overflow: hidden;
+
+      &:last-child {
+        flex-grow: 1;
+        overflow: hidden;
+      }
+
+      p {
+        margin-bottom: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.chat-item {
+  padding: 15px;
+
+  .time {
+    margin: 10px 0;
+    text-align: center;
+    font-size: 12px;
+    color: #d0cfcf;
+  }
+
+  .chat-item-info {
+    display: flex;
+    justify-content: flex-start;
+
+    &.chat-right {
+      flex-direction: row-reverse;
+
+      .chat-main {
+        text-align: right;
+        margin-right: 12px;
+
+        .username {
+          color: #9f9f9f;
+        }
+
+        .chat-content {
+          background: #d9f4fe;
+          text-align: left;
+
+          &::before{
+            display: none;
+          }
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 100%;
+            width: 0;
+            height: 0;
+            border-top: 3px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 6px solid #d9f4fe;
+          }
+        }
+      }
+    }
+
+    .chat-main {
+      flex-grow: 1;
+      margin-left: 12px;
+
+      .username {
+        color: #a0abca;
+        font-size: 14px;
+      }
+
+      .chat-content {
+        position: relative;
+        display: inline-block;
+        max-width: 80%;
+        padding: 12px;
+        border-radius: 5px;
+        background: #f3f3f3;
+        word-wrap: break-word;
+        word-break: break-all;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 8px;
+          right: 100%;
+          width: 0;
+          height: 0;
+          border-top: 3px solid transparent;
+          border-bottom: 6px solid transparent;
+          border-right: 6px solid #f3f3f3;
+        }
+
+        img {
+          max-width: 100%;
+          height: 200px;
+        }
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

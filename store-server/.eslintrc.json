@@ -1,0 +1,80 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true,
+    "mocha": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "airbnb-base"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint","prettier"
+  ],
+  "settings": {
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"]
+  },
+  "rules": {
+    "import/no-unresolved": "off",
+    "import/extensions": [
+      "off",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never",
+        "json": "never"
+      }
+   ],
+    "linebreak-style": "off",
+    "import/newline-after-import": "off",
+    "no-underscore-dangle": "off",
+    "no-restricted-globals": "off",
+    "dot-notation": "off",
+    "func-names": "off",
+    "prefer-arrow-callback": "off",
+    "import/prefer-default-export": "off",
+    "comma-dangle": "off",
+    "prefer-destructuring": "off",
+    "no-plusplus": "off",
+    "no-unused-vars": "off",
+    "import/order": "off",
+    "camelcase": "off",
+    "arrow-parens": "off",
+    "no-console": "off",
+    "no-use-before-define": "off",
+    "no-await-in-loop": "off",
+    "no-param-reassign": "off",
+    "no-unused-expressions": "off",
+    "consistent-return": "off",
+    "no-loop-func": "off",
+    "no-restricted-syntax": "off",
+    "no-prototype-builtins": "off",
+    "import/first": "off",
+    "lines-between-class-members": "off",
+    "no-mixed-operators": "off",
+    "import/no-duplicates": "off",
+    "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": "off",
+    "array-callback-return": "off",
+    "no-useless-concat": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 280
+      }
+    ],
+    "no-continue": "off",
+    "indent": "off"
+  }
+}

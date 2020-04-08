@@ -1,0 +1,140 @@
+{
+  "name": "robot-four-a",
+  "version": "1.0.0",
+  "description": "这是一个拥有四端的微信机器人应用程序，浏览器客户端、监听服务端、存储服务端、接口服务端。",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -e ts --exec ts-node -r tsconfig-paths/register src/main.ts",
+    "debug": "nodemon  --ext js,ts  --exec node -r  ts-node/register --inspect-brk src/main.ts  ",
+    "start:dev": "cross-env NODE_ENV=development npm run start",
+    "start:test": "cross-env NODE_ENV=testing npm run start",
+    "prod": "cross-env NODE_ENV=production node -r tsconfig-paths/register ./src/main.js",
+    "test": "cross-env NODE_ENV=development jest --runInBand",
+    "build": "npm run rm-dist && npm run build-ts && npm run copy-static",
+    "build-ts": "tsc -b ./  --verbose",
+    "copy-static": "ts-node copyStatic.ts",
+    "rm-dist": "ts-node rm-dist.ts",
+    "apidoc": "apidoc -i ./src/app/routes -o ./src/app/apidoc/dist -c ./src/app/apidoc",
+    "lint": "eslint src test --ext .ts",
+    "lint:fix": "eslint src test --ext .ts --fix",
+    "prepush": "npm run lint",
+    "cz": "npm run lint:fix && npm run log && git add .  && git cz",
+    "log": "conventional-changelog --config ./node_modules/vue-cli-plugin-commitlint/lib/log -i CHANGELOG.md -s -r 0",
+    "release": "standard-version",
+    "push-tag": "git push --follow-tags origin master",
+    "czpush": "npm run cz && npm run push",
+    "remote-workpush": "npm run cz && git push origin master:master",
+    "workpush": "npm run cz && git push origin work-master:work-master",
+    "tagpush": "npm run release && npm run push-tag",
+    "login": "npm login",
+    "tonpm": "nrm use npm && npm publish",
+    "clear": "npm cache clean --force"
+  },
+  "pre-commit": [
+    "lint:fix"
+  ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/vue-cli-plugin-commitlint/lib/cz"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "keywords": [
+    "koa",
+    "ts"
+  ],
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": false
+  },
+  "author": "哎哟迪奥",
+  "license": "MPL-2",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "winston": "^2.4.1",
+    "winston-daily-rotate-file": "^3.0.2",
+    "axios": "^0.19.2",
+    "cross-env": "^7.0.2",
+    "debug": "^4.1.1",
+    "easyqrcodejs-nodejs": "^3.5.1",
+    "koa": "^2.8.1",
+    "koa-body": "^4.1.1",
+    "koa-favicon": "^2.1.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-onerror": "^4.1.0",
+    "koa-router": "^8.0.8",
+    "koa-sse-middleware": "^0.4.0",
+    "koa-static-server": "^1.4.0",
+    "koa-views": "^6.2.1",
+    "log4js": "^6.1.2",
+    "mysql": "^2.18.1",
+    "pug": "^2.0.4",
+    "qrcode-terminal": "^0.12.0",
+    "request": "^2.88.2",
+    "tsconfig-paths": "^3.9.0",
+    "typeorm": "^0.2.24",
+    "urlencode": "^1.1.0",
+    "wechaty": "^0.35.6",
+    "wechaty-puppet-padplus": "^0.5.25"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@types/amqplib": "^0.5.13",
+    "@types/debug": "^4.1.5",
+    "@types/jest": "^25.1.4",
+    "@types/koa": "^2.11.2",
+    "@types/koa-compose": "^3.2.5",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.4.0",
+    "@types/koa-views": "^2.0.3",
+    "@types/log4js": "^2.3.5",
+    "@types/mocha": "^7.0.2",
+    "@types/mysql": "^2.15.9",
+    "@types/node": "^13.9.0",
+    "@types/request": "^2.48.4",
+    "@types/shelljs": "^0.8.5",
+    "@types/supertest": "^2.0.8",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "apidoc": "^0.20.0",
+    "babel-core": "^6.26.3",
+    "commitizen": "^4.0.3",
+    "commitlint": "^8.2.0",
+    "conventional-changelog-cli": "^2.0.28",
+    "coveralls": "^3.0.6",
+    "cz-conventional-changelog": "^3.0.2",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.19.1",
+    "shelljs": "^0.8.3",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2",
+    "ts-jest": "^25.2.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3",
+    "vue-cli-plugin-commitlint": "^1.0.10"
+  }
+}

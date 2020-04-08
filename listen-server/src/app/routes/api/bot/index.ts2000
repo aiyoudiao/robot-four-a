@@ -1,0 +1,25 @@
+/*
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-03-10 11:33:01
+ * @LastEditTime: 2020-03-10 18:50:08
+ * @LastEditors: aiyoudiao
+ * @FilePath: \web-end\my-robot\src\app\routes\api\bot\index.ts
+ */
+
+import { start } from '@controller/bot';
+
+ import Router from 'koa-router';
+ const router = new Router();
+ router.prefix('/bot/');
+
+ router.get('/start', start);
+//  router.use(user.routes(), user.allowedMethods());
+//  router.use(project.routes(), project.allowedMethods());
+
+ router.get('/', async ctx => {
+   ctx.body = 'api/bot';
+ });
+
+ export default router;

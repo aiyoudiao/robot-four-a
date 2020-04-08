@@ -1,0 +1,12 @@
+{
+  "name": "API 文档",
+  "version": "1.0.0",
+  "title": "API",
+  "url": "http://localhost:8080/api",
+  "sampleUrl": "http://localhost:8080/api",
+  "forceLanguage": "zh-cn",
+  "template": {
+    "withCompare": true,
+    "withGenerator": true
+  }
+}

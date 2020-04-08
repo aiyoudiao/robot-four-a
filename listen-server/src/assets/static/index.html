@@ -1,0 +1,161 @@
+<!--
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-03-14 08:29:03
+ * @LastEditTime: 2020-04-01 11:54:32
+ * @LastEditors: aiyoudiao
+ * @FilePath: \my-robot\src\assets\static\index.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./easy.qrcode.min.js" type="text/javascript" charset="utf-8"></script>
+    <title>微信机器人-二维码登录</title>
+</head>
+
+<body>
+
+    <div id="qrcode"></div>
+
+    <script type="text/javascript">
+            const scanState = {
+                0: '正在初始化',
+                1: '已取消登录',
+                2: '请扫码确认登录',
+                3: '扫码成功，待确认',
+                4: '已登录成功',
+                5: '二维码超时',
+                'undefiend': '请启动微信机器人'
+            };
+        function generateQrCode(qrcode, status) {
+            const options = {
+                // ====== Basic
+                // text: 'www.easyproject.cn/donation',
+                text: qrcode || scanState[`${status}`],
+                width: 400,
+                height: 400,
+                correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+                dotScale: 0.7, // Must be greater than 0, less than or equal to 1. default is 1
+                colorDark: '#F50057',
+                colorLight: '#FCE4EC',
+
+                // QuietZone
+                quietZone: 15,
+
+                // === Title
+                title: 'iPad微信登录', // Title
+                titleFont: 'bold 24px sans-serif', // Title font
+                titleColor: '#FF3D00', // Title Color
+                titleBackgroundColor: '#FFCDD2', // Title Background
+                titleHeight: 70, // Title height, include subTitle
+                titleTop: 25, // Title draw position(Y coordinate), default is 30
+
+                // === SubTitle
+                subTitle: scanState[`${status}`], // Subtitle content
+                subTitleFont: '20px sans-serif', // Subtitle font
+                subTitleColor: '#FF6D00', // Subtitle color
+                subTitleTop: 55, // Subtitle drwa position(Y coordinate), default is 50
+
+                /* PI  为 内
+                 ** PO  为 外
+                 */
+
+                // === Posotion Pattern(Eye) Color
+                PI: 'rgb(239,112,96)',
+                PO: '#FF3D00',
+
+                PI_TL: 'rgb(239,112,96)', // Position Inner - Top Left
+                PO_TL: '#FF3D00', // Position Outer - Top Right
+                // AO: '#336699', // Position Outer - Bottom Right
+                // AI: '#336699', // Position Inner - Bottom Right
+
+                // === Aligment color
+                AI: 'rgb(239,112,96)',
+                AO: '#FF3D00',
+
+                // === Timing Pattern Color
+                // timing: '#e1622f', // Global Timing color. if not set, the defaut is `colorDark`
+                timing_H: '#0f0', // Horizontal timing color
+                timing_V: '#0ff', // Vertical timing color
+
+                // === Logo
+                // logo: "https://avatars1.githubusercontent.com/u/4082017?s=160&v=4", // LOGO
+                // logo: '../../../assets/static/bg.jpg', // LOGO
+                logo: './bg.jpg',
+                logoWidth: 100,
+                logoHeight: 100,
+                logoBackgroundColor: '#FFCDD2', // Logo backgroud color, Invalid when `logBgTransparent` is true; default is '#ffffff'
+                logoBackgroundTransparent: true, // Whether use transparent image, default is false
+
+                // === Background image
+                // backgroundImage: './bg.jpg',
+                // backgroundImage: "http://localhost:8989/static/bg.jpg",
+                // backgroundImageAlpha: 0.3,
+                // autoColor: true,
+
+                // onRenderingStart: function(options) {
+                //   console.info('The QRCode file `q3.' + options.format + '` was created.');
+                // },
+
+                // format:'JPG'+
+            };
+            document.getElementById("qrcode").innerHTML = ''
+            // Create QRCode Object
+            new QRCode(document.getElementById("qrcode"), options);
+        }
+    </script>
+    <!-- Please open the console
+     -->
+    <!-- <img src="" alt="扫码登录" id="qrcode"> -->
+    <script>
+        var evtSource = new EventSource("/sse/getScanCode");
+        let i = 0;
+        let before = ''
+        evtSource.onmessage = function (e) {
+
+            if (e.data.indexOf('请启动机器人先')) {
+                i++;
+            } else {
+                i = 0;
+            }
+
+            if (i === 15) {
+                i = 0;
+                evtSource.close();
+            }
+
+            console.log(e.data);
+            console.log(e);
+
+            // console.log(e);
+            // console.log('onmsg: ' + e.data);
+            // document.getElementById('qrcode').src = e.data.replace(/\d{4}\-\d{1,2}\-\d{2}\s+\d{2}:\d{2}:\d{2}/, '').replace(/\r\n/, '');
+            // document.getElementById('qrcode').src = e.data.replace(/\d{4}\-\d{1,2}\-\d{2}\s+\d{2}:\d{2}:\d{2}/, '').replace('&#10;', '')
+            
+            if (before === e.data) {
+                return;
+            } else {
+                before = e.data;
+            }
+
+            const obj = JSON.parse(e.data);
+            if (obj && obj.status === undefined) {
+                obj.status = scanState['undefined'];
+            }
+            generateQrCode(obj.qrcode, obj.status)
+
+
+        }
+        evtSource.onerror = function (e) {
+            console.log('error', e);
+            evtSource.close();
+        }
+    </script>
+</body>
+
+</html>

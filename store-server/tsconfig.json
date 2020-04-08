@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "types": [
+      "node",
+      "jest"
+    ],
+    "declaration": false,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": false,
+    "esModuleInterop": true,
+    "paths": {
+      "@ormController/*": [
+        "./src/app/orm-core/controller/*"
+      ],
+      "@orm/*": [
+        "./src/app/orm-core/*"
+      ],
+      "@common/*": [
+        "./src/common/*"
+      ],
+      "@config/*": [
+        "./src/app/config/*"
+      ],
+      "@lib/*": [
+        "./src/app/lib/*"
+      ],
+      "@lib": [
+        "./src/app/lib/index"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ],
+  "exclude": [
+    "copyStatic.ts",
+    "rm-dist.ts",
+    "node_modules"
+  ]
+}

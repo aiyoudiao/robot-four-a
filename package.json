@@ -1,0 +1,52 @@
+{
+  "name": "robot-four-a",
+  "version": "1.0.0",
+  "description": "这是一个拥有四端的微信机器人应用程序，浏览器客户端、监听服务端、存储服务端、接口服务端。",
+  "main": "index.js",
+  "scripts": {
+    "cz": "git add . && git cz",
+    "log": "conventional-changelog --config ./node_modules/vue-cli-plugin-commitlint/lib/log -i CHANGELOG.md -s -r 0",
+    "release": "standard-version",
+    "push-tag": "git push --follow-tags origin master",
+    "push": "npm run cz && git push origin master:master",
+    "tagpush": "npm run release && npm run push-tag",
+    "login": "npm login",
+    "tonpm": "nrm use npm && npm publish",
+    "clear": "npm cache clean --force"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/vue-cli-plugin-commitlint/lib/cz"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "keywords": [
+    "wechaty",
+    "typescript",
+    "typeorm",
+    "iview",
+    "vue",
+    "mysql",
+    "node"
+  ],
+  "author": "哎哟迪奥",
+  "license": "MPL-2",
+  "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "commitizen": "^4.0.3",
+    "commitlint": "^8.2.0",
+    "conventional-changelog-cli": "^2.0.28",
+    "cz-conventional-changelog": "^3.0.2",
+    "vue-cli-plugin-commitlint": "^1.0.10",
+    "coveralls": "^3.0.6",
+    "babel-core": "^6.26.3",
+    "pre-commit": "^1.2.2",
+    "husky": "^4.2.3",
+    "should": "^13.2.3"
+  }
+}

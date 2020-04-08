@@ -1,0 +1,35 @@
+<!--
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-03-14 08:29:03
+ * @LastEditTime: 2020-03-15 04:31:06
+ * @LastEditors: aiyoudiao
+ * @FilePath: \my-robot\src\assets\static\example.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SSE Test</title>
+</head>
+<body>
+        Please open the console
+    
+    <!-- <img src="" alt="扫码登录" id="qrcode"> -->
+    <script>
+        var evtSource = new EventSource("http://localhost:8080/sse/getScanCode");
+        evtSource.onmessage = function(e) {
+            console.log(e);
+            console.log('onmsg: ' + e.data);
+            // document.getElementById('qrcode').src = 'data:' + e.data.split('data:')[1];
+        }
+        evtSource.onerror = function(e) {
+            console.log('error', e);
+            evtSource.close();
+        }
+    </script>
+</body>
+</html>
